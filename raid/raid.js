@@ -17,6 +17,7 @@
 	register = require("./routes/register"),
 	flow = require("./routes/flow"),
 	admin = require("./routes/admin");
+    api = require("./routes/api/api");
 
 var jst_ts = (new Date("2000-01-01T00:00+09:00")).getTime();
 
@@ -64,7 +65,7 @@ var app = express();
 		resave: true,
 		saveUninitialized: true,
 		store: new MongoStore({
-			db: 'session',
+			mongooseConnection: model.db,
 			clear_interval: 60 * 60 * 24
 		})
 	}));
@@ -104,6 +105,9 @@ var app = express();
 	app.locals.flowLabel = {"0": "出", "1": "欠", "2": "フ"};
 	app.locals.roles = {mdps: "Melee", rdps: "Range", heal: "Heal", tank: "Tank", dps: "DPS"};
 
+    // API
+    app.use("/api", api(app));
+    
 	// auth routes
 	app.use(loginCheck);
 	app.use("/", index);

@@ -45,6 +45,7 @@ var Event = exports.Event = mongoose.model("Event", EventSchema);
 var User = exports.User = mongoose.model("User", UserSchema);
 var Flow = exports.Flow = mongoose.model("Flow", FlowSchema);
 
+exports.db = db;
 exports.fetchFlow = function(latest, date, callback) {
 	User.find({verified: true}, function(err, users) {
 		if (err) {
