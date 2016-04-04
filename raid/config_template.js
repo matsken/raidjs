@@ -3,6 +3,7 @@ var config = {
 	logo: "<url to logo>",
 	passcode: "<registration pass>",
 	hostname: "<hostname used for confirmation link>",
+	vhost: "<domain.com>",	// virtual host name to route
 	adminuser: "<super user>",
 	adminpass: "<super user pass>",
 	session_secret: "<session_secret>",
