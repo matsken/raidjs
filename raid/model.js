@@ -1,8 +1,9 @@
 var mongoose = require("mongoose"),
+	config = require("./config");
 	us = require("underscore");
 var uniqueValidator = require("mongoose-unique-validator");
 
-var url = "mongodb://localhost:27017/raidjs";
+var url = config.database.url;
 mongoose.connect(url);
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));

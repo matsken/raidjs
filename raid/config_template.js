@@ -13,7 +13,10 @@ var config = {
 			pass: "<password>"
 		}
 	},
-	fromEmail: "<confirmation email sender address>"
+	fromEmail: "<confirmation email sender address>",
+	database: {
+		url: "mongodb://localhost:27017/raidjs"
+	}
 };
 
 module.exports = config;
