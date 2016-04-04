@@ -108,7 +108,7 @@ var app = express();
 	app.use(loginCheck);
 	app.use("/", index);
 	app.get("/clearall", function(req, res) {
-		if (req.session.user.name == "administrator") {
+		if (req.session.user.name == config.adminuser) {
 			User.remove({}, function() {});
 			Event.remove({}, function() {});
 			Flow.remove({}, function() {});
