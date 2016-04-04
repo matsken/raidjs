@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	table.slickTable
+		tr
+			for h in jst
+				td= h
+		tr
+			for h in pst
+				td= h
+		tr
+			for h in pdt
+				td= h
+	br
+	a.twitter-timeline(href="https://twitter.com/search?q=%40BlizzardCS%20maintenance%20%23WoW",data-widget-id="535706108065624064") メンテ情報
+	script#twitter-wjs(src="http://platform.twitter.com/widgets.js")

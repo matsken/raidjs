@@ -1,0 +1,93 @@
+extends layout
+
+block content
+	div.error= error
+	div.eventTitle= "イベント " + date
+	- var roleLabel = {dps: "DPS", heal: "Heal", tank: "Tank"};
+	form(action="/events/confirm", method="POST")
+		button.button(type="submit") 確定
+		a.button(href="/events") キャンセル
+		br
+		br
+		table
+			tr
+				td タイトル
+				td
+					input(type="text", name="title", value=event.title || "")
+			tr
+				td コメント
+				td
+					input(type="text", name="comment", value=event.comment || "")
+		div
+			現在、参加が
+			span#attendCount
+			人、欠席が
+			span#absentCount
+			人、フローが
+			span#flowCount
+			人です。
+		div.flow
+			- for (var role in data)
+				- var roleData = data[role]
+				div.flowTable
+					table.slickTable
+						thead
+							tr
+								th(class=role=="dps"?"dpsFlow":"")= roleLabel[role]
+								th 出欠
+						tbody
+							- if (roleData.length == 0)
+								tr
+									td(colspan="2") -
+							- for user in roleData
+								tr
+									td(class=user.role + " " + user.class.replace(" ", ""))= user.name
+									td
+										div(class=user.role + "Att buttongroup")
+											input(type="radio", name=user._id, value="0", id="attend-" + user._id)
+											label(for="attend-" + user._id) 出席
+											input(type="radio", name=user._id, value="1", checked="checked", id="absent-" + user._id)
+											label(for="absent-" + user._id) 欠席
+											input(type="radio", name=user._id, value="2", id="flow-" + user._id)
+											label(for="flow-" + user._id) フロー
+					-if (role == "dps")
+						span Range:
+						span#rdpsCount -
+						br
+						span Melee:
+						span#mdpsCount -
+		input(type="hidden", name="id", value=event.id)
+	script.
+		function updateCount() {
+			var attCount = 0, absCount = 0, flowCount = 0;
+			$("input[type='radio']:checked").each(function(idx, r) {
+				if (r.value == 0) {
+					attCount++;
+				} else if (r.value == 1) {
+					absCount++;
+				} else if (r.value == 2) {
+					flowCount++;
+				}
+			});
+			$("#attendCount").text(attCount);
+			$("#absentCount").text(absCount);
+			$("#flowCount").text(flowCount);
+			
+			var mCount = 0;
+			$("input[type='radio']:checked", $(".mdpsAtt")).each(function(idx, i) {
+				if (i.value == 0) {
+					mCount++;
+				}
+			});
+			$("#mdpsCount").text(mCount);
+			
+			var rCount = 0;
+			$("input[type='radio']:checked", $(".rdpsAtt")).each(function(idx, i) {
+				if (i.value == 0) {
+					rCount++;
+				}
+			});
+			$("#rdpsCount").text(rCount);
+		}
+		$(".buttongroup").buttonset().click(updateCount);
+		$(updateCount);

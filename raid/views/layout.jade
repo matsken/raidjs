@@ -1,0 +1,41 @@
+doctype html
+html
+	head
+		title= title
+		link(rel='stylesheet', href='//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/mint-choc/jquery-ui.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script(type='text/javascript', src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+		script(type='text/javascript', src='//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js')
+	body.raidjs
+		div.header
+			div.logo
+				a(href="/")
+					img(src=config.logo, width="32", height="32", border="0")
+					= title
+			div.actions
+				- if (session && session.user)
+					a(href="/logout") ログアウト
+		-if (session && session.user)
+			div.leftNav
+				div.navPane
+					a(href="/events")  カレンダー
+					a(href="/flow") フローリスト
+					- if(session.user && session.user.isAdmin)
+						a(href="/admin") 管理用
+					a(href="/users/info") ユーザー情報
+					li -
+					a(href="http://cavaliersguilt2.blogspot.jp/", target="_blnak") CAVAG Top
+					a(href="http://www.cavag.jpn.org/forum/index.php", target="_blnak") CAVAGフォーラム
+					a(href="/times") メンテ情報
+				iframe(src="http://www.warcraftlogs.com/guilds/recent_reports/11548/")
+			div.main
+				div.content
+					block content
+		- else
+			div
+				block content
+		div.footer
+			div.copyright
+				span RaidJS v0.0 Copyright&copy; 
+				a(href="http://twitter.com/xamiemon") @xamiemon
+		script(type='text/javascript', src='/javascripts/main.js')

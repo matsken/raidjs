@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	div.loginContainer
+		div.error= error
+		form(action="/register/reset", method="post")
+			table
+				tr
+					td
+						label Email
+					td
+						input(type="text", name="email")
+			button.button(type=submit) 送信

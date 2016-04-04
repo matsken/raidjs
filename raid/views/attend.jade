@@ -1,0 +1,82 @@
+extends layout
+
+block content
+	div= error
+	form(action="/events/attend", method="post")
+		button.button(type="submit") OK
+		a.button(href="/events/" + week) Cancel
+		input(type="hidden", name="week", value=week)
+		table.slickTable
+			thead
+				tr
+					th 
+					for event in events
+						th(class=event.today ? "today" : "")= event.label
+			tbody
+				tr
+					td イベント詳細
+					for event in events
+						td(class=event.today ? "today" : "")
+							div.eventTitle= event.data.title || ""
+							div.eventComment= event.data.comment || ""
+				tr
+					- if (adminoverride)
+						td
+							select(name="user", id="userSelect")
+								for user in users
+									option(value=user._id) #{user.name}
+					- else
+						td= session.user.name
+					- for (var i = 0; i < events.length; i++)
+						- var event = events[i]; var atnd = event.data.attendance && event.data.attendance[session.user._id] || {choice: "", comment: ""}
+						td(class=event.today ? "today" : "")
+							div.buttonGroup.attendanceSelector(data-event-id=event.data.id || "", data-event-date=event.date, data-event-choice=atnd.choice || 0, data-event-comment=atnd.comment)
+								input(type="radio", id="OK_" + i, name="choice" + i, value="1", checked=(atnd.choice == 1))
+								label(for="OK_" + i) ○
+								input(type="radio", id="UK_" + i, name="choice" + i, value="2", checked=(atnd.choice == 2))
+								label(for="UK_" + i) △
+								input(type="radio", id="NK_" + i, name="choice" + i, value="3", checked=(atnd.choice == 3))
+								label(for="NK_" + i) ×
+								input.commentInput(type="text", name="comment" + i, value=atnd.comment, size="7")
+								input(type="hidden", name="id" + i, value=event.data.id)
+								input(type="hidden", name="date" + i, value=event.date)
+	script.
+		$(function(){
+			$(".buttonGroup").buttonset();
+			$("#userSelect").change(function() {
+				$(".commentInput").val("代理入力");
+			});
+			
+			return;
+			$("#save").click(function(){
+				var data = [];
+				$(".attendanceSelector").each(function(idx, att) {
+					var id = $(att).attr("data-event-id");
+					var comment = $(".commentInput", att).val();
+					var choice = $("input[type='radio']:checked", att).val();
+					var origChoice = $(att).attr("data-event-choice");
+					var origComment = $(att).attr("data-event-comment");
+					var date = $(att).attr("data-event-date");
+					var obj = {
+						id: id,
+						choice: choice, 
+						comment: comment,
+						date: date
+					};
+					if (choice && choice != origChoice || comment != origComment) {
+						data.push(obj);
+					}
+				});
+				if (data.length > 0) {
+					data = {data: data};
+					var userSelect = $("#userSelect");
+					if (userSelect && userSelect.length > 0) {
+						data.user = userSelect.val();
+					}
+					$.post("/events/attend", data).then(function(res) {
+						window.location = "/events";
+					});
+				}
+			});
+		});
+	

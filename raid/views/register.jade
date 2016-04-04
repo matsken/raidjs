@@ -1,0 +1,55 @@
+extends layout
+
+block content
+	div.loginContainer
+		div.headerTitle CAVAG Raid ユーザー登録
+		br
+		div.error= error
+		form(action="/register", method="post")
+			table
+				tr
+					td
+						label Email
+					td
+						input(type="text", name="email")
+				tr
+					td
+						label パスワード
+					td
+						input(type="password", name="password")
+				tr
+					td
+						label キャラ名
+					td
+						input(type="text", name="name")
+				tr
+					td
+						label 職種
+					td
+						select(name="class")
+							option(value="Death Knight") Death Knight
+							option(value="Druid") Druid
+							option(value="Hunter") Hunter
+							option(value="Monk") Monk
+							option(value="Mage") Mage
+							option(value="Paladin") Paladin
+							option(value="Priest") Priest
+							option(value="Rogue") Rogue
+							option(value="Shaman") Shaman
+							option(value="Warlock") Warlock
+							option(value="Warrior") Warrior
+				tr
+					td
+						label 業種
+					td
+						select(name="role")
+							option(value="tank") Tank
+							option(value="heal") Heal
+							option(value="rdps") Range DPS
+							option(value="mdps") Melee DPS
+				tr
+					td
+						label 登録コード
+					td
+						input(type="text", name="code")
+			button.button(type=submit) 登録

@@ -1,0 +1,6 @@
+app.log
+node_modules/*
+raid/config.js
+raid/public/favicon.ico
+raid/mailTemplate.html
+raid/resetTemplate.html

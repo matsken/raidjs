@@ -1,0 +1,32 @@
+extends layout
+
+block content
+	div.loginContainer
+		div CAVAG Raid ログイン
+		br
+		div= message
+		div.error= error
+		form(action="/login", method="post")
+			table.loginTable
+				tr
+					td
+						label Email
+					td
+						input(type="text", name="email")
+				tr
+					td
+						label パスワード
+					td
+						input(type="password", name="password")
+				tr(style="display: none")
+					td 
+					td
+						input(type="checkbox", name="persistLogin", id="persistLogin")
+						label(for="persistLogin") ログイン状態を維持
+			div.loginAction
+				button.button(type=submit) ログイン
+		div.loginLinks
+			span.registrationLink
+				a(href="/register") 新規登録
+			span
+				a(href="/register/forgot") ログイン情報忘れた？

@@ -1,0 +1,21 @@
+extends layout
+
+block content
+	div= error
+	form(action="/users/pass", method="post")
+		table
+			tr
+				td
+					label 現在のパスワード
+				td
+					input(type="password", name="password")
+			tr
+				td
+					label 新しいパスワード
+				td
+					input(type="password", name="newPassword")
+		button.button(type="submit") 更新
+		a.button(href="/users/info") 戻る
+	script.
+		$("#clsSelect").val("#{session.user.class}");
+		$("#roleSelect").val("#{session.user.role}");

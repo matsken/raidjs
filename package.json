@@ -1,0 +1,50 @@
+{
+  "name": "raidjs",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.0.0",
+    "cheerio": "^0.18.0",
+    "connect-mongo": "^0.4.1",
+    "cookie-parser": "~1.0.1",
+    "dateformat": "^1.0.8-1.2.3",
+    "debug": "~0.7.4",
+    "express": "~4.2.0",
+    "express-session": "^1.7.5",
+    "jade": "~1.3.0",
+    "mongoose": "^3.8.15",
+    "mongoose-unique-validator": "^0.3.0",
+    "morgan": "~1.0.0",
+    "node-uuid": "^1.4.1",
+    "nodemailer": "^1.1.1",
+    "password-hash": "^1.2.2",
+    "request": "^2.49.0",
+    "static-favicon": "~1.0.0",
+    "underscore": "^1.7.0",
+    "vhost": "^3.0.0"
+  },
+  "description": "A raid attendance management system",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matsken/raidjs.git"
+  },
+  "keywords": [
+    "World",
+    "of",
+    "Warcraft",
+    "Raid",
+    "WoW",
+    "Calendar"
+  ],
+  "author": "matsken",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matsken/raidjs/issues"
+  },
+  "homepage": "https://github.com/matsken/raidjs#readme"
+}

@@ -1,0 +1,41 @@
+extends layout
+
+block content
+	- var rolesLabel = {dps: "DPS", tank: "Tank", heal: "Heal", mdps: "Melee", rdps: "Range", total: "Total"};
+	- var roles = {"tank":"tank", "heal":"heal", "rdps":"dps", "mdps":"dps"};
+	div.error= error
+	div.eventTitle= date + (event.title ? " " + event.title : "")
+	div= event.comment
+	div.flowTable
+		table.slickTable
+			thead
+				tr
+					th Role
+					th 参加数（含△）
+			tbody
+				- for (role in counts)
+					tr
+						td= rolesLabel[role]
+						td= counts[role]
+	- for (var role in data)
+		div.flowTable
+			table.slickTable
+				thead
+					tr
+						th= rolesLabel[role]
+						th 参加状況
+						- if (flow && flow[roles[role]])
+							th 結果
+				tbody
+					- for user in data[role]
+						tr
+							td(class=user.class.replace(" ", ""))= user.name
+							td
+								- var comm = event.attendance[user._id] && event.attendance[user._id].comment || ""
+								- var choice = event.attendance && event.attendance[user._id] && choices[event.attendance[user._id].choice] ? choices[event.attendance[user._id].choice] : "-"
+								= choice
+								- if (comm)
+									div.commentBox(title=comm)= comm
+							- if (flow && flow[roles[role]])
+								- var res = flow[roles[role]][user._id]
+								td= flowLabel[res]

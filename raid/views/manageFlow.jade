@@ -1,0 +1,58 @@
+extends layout
+
+block content
+	div.error= error
+	div.message= message
+	a(href="/flow/addAll") 全員追加
+	a(href="/flow/export") CSV形式でエクスポート
+	br
+	div.flowTable
+		table.slickTable
+			thead
+				tr
+					th 名前
+					th Role
+					th 追加
+			tbody
+				- if (users.length == 0)
+					tr
+						td(colspan="3") 全員追加されています
+				- for user in users
+					- if (user)
+						tr
+							td(class=user.class.replace(" ", ""))= user.name
+							td= user.role
+							td
+								form(action="/flow/addUser", method="post")
+									input(type="hidden", name="id", value=user._id)
+									input(type="hidden", name="role", value=user.role)
+									button.button(type="submit") ⇒
+	- for (var role in data)
+		- var roleData = data[role]
+		div.flowTable
+			table(class=role + "Table slickTable")
+				thead
+					tr
+						th= roles[role]
+						th コントロール
+				tbody
+					- if (roleData.length == 0)
+						tr
+							td(colspan="2") 空です
+					- for user in roleData
+						- if (user)
+							tr
+								td(class=user.class.replace(" ", ""))= user.name
+								td.manageFlowAction
+									form(action="/flow/up", method="post")
+										input(type="hidden", name="id", value=user._id)
+										input(type="hidden", name="role", value=role)
+										button.button(type="submit") ↑
+									form(action="/flow/down", method="post")
+										input(type="hidden", name="id", value=user._id)
+										input(type="hidden", name="role", value=role)
+										button.button(type="submit") ↓
+									form(action="/flow/deleteUser", method="post")
+										input(type="hidden", name="id", value=user._id)
+										input(type="hidden", name="role", value=role)
+										button.button(type="submit") ×

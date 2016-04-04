@@ -1,0 +1,55 @@
+extends layout
+
+block content
+	div= error
+	div= message
+	form(action="/users/updateAdmin", method="POST")
+		- if(session.user.isAdmin)
+			button.button.saveUsers(type="submit") 更新
+			button.button#showIlvl Show ilvl
+
+		table.slickTable
+			thead
+				tr
+					th 名前
+					th 職種
+					th 業種
+					th ilvl 
+					th メール認証済
+					th 管理者
+					th 削除
+			tbody
+			for user in users
+				tr.userRow
+					td
+						input(type="text", value=user.name, name="name_" + user.id)
+						a(class=user.class.replace(" ", "") + " userName", href="http://us.battle.net/wow/en/character/proudmoore/" + user.name + "/advanced", target="_blank")= user.name
+					td= user.class
+					td= roles[user.role]
+					td.ilvl
+					td= user.verified
+					td
+						- if (session.user.isAdmin)
+							input(type="checkbox", name=user.id, checked=user.isAdmin)
+						- else
+							= user.isAdmin
+					td
+						- if (session.user.isAdmin)
+							input(type="checkbox", name="delete-" + user.id)
+	script.
+		$(function() {
+			$("#showIlvl").button().click(function() {
+				$(".userRow").each(function(idx, row) {
+					var name = $("input", row).val();
+					var cell = $(".ilvl", row);
+					cell.text("");
+					$.get("/users/ilvl", {name: name}).then(function(data) {
+						var pvp = "";
+						if (data.pvp) {
+							pvp = " (PvP有)";
+						}
+						cell.text(data.average + " (~695: " + data.subNorm + ", ~710: " + data.subHero + ", ~725: " + data.subMyth + ")" + pvp);
+					});
+				});
+			});
+		});

@@ -1,0 +1,31 @@
+extends layout
+
+block content
+	div.error= error
+	div.message= message
+	div フロー履歴
+	- var labels = {0: "出", 1: "欠", 2: "フ"}
+	table.slickTable.dpsTable
+		thead
+			tr
+				th 日付
+				th DPS
+				th Heal
+				th Tank
+		tbody
+			- for (var date in data)
+				tr
+					td
+						a(href="/flow/history/" + data[date].date.getTime())= date
+					td
+						- for (var name in data[date].dps)
+							span(class=data[date].dps[name].user.class.replace(" ", ""))= name
+							span= " (" + labels[data[date].dps[name].result] + ") "
+					td
+						- for (var name in data[date].heal)
+							span(class=data[date].heal[name].user.class.replace(" ", ""))= name
+							span= " (" + labels[data[date].heal[name].result] + ") "
+					td
+						- for (var name in data[date].tank)
+							span(class=data[date].tank[name].user.class.replace(" ", ""))= name
+							span= " (" + labels[data[date].tank[name].result] + ") "

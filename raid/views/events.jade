@@ -1,0 +1,71 @@
+extends layout
+
+block content
+	div= error
+	a.button(href="/events/" + (week - 1)) < 前週
+	a.button(href="/events/" + (week + 1)) 次週 >
+	a.button(href="/events/attend/" + week) 出欠登録
+	- if (session.user.isAdmin)
+		a.button(href="/events/adminAttend/" + week) 代理登録
+	table.slickTable.eventCalendar
+		thead
+			tr
+				th 
+				for event in events
+					th(class=event.today ? "today" : "")
+						- if (event.data.id)
+							a(href="/events/details/" + event.data.id)
+								= event.label
+						- else
+							= event.label
+		tbody
+			tr.eventDetailsRow
+				td イベント詳細
+				for event in events
+					td(class=event.today ? "today" : "")
+						- if (session.user.isAdmin)
+							a.button(href=(event.data.id ? "/events/edit/" + event.data.id : "/events/add/" + event.date)) 編集
+							- if (event.date <= (new Date()).getTime() && event.data.id)
+								-if (event.data.confirmed)
+									span.linkLabel 済
+								- else
+									a.button(href=("/events/confirm/" + (event.data.id || "0"))) 確定
+						div.eventTitle= event.data ? event.data.title : ""
+						div.eventComment= event.data ? event.data.comment : ""
+			tr.eventSummaryRow
+				td 出欠合計
+				for event in events
+					td(class=event.today ? "today" : "")
+			for user in users
+				tr.attendanceRow
+					td
+						a(href="http://us.battle.net/wow/en/character/proudmoore/" + user.name + "/advanced", target="_blank", class=user.class.replace(" ", ""))= user.name
+					for event in events
+						td(class=event.today ? "today" : "")
+							- var comm = event.data.attendance && event.data.attendance[user._id] && event.data.attendance[user._id].comment || ""
+							- var choice = event.data.attendance && event.data.attendance[user._id] && choices[event.data.attendance[user._id].choice] ? choices[event.data.attendance[user._id].choice] : "-"
+							= choice
+							- if (comm)
+								div.commentBox(title=comm)= comm
+	script.
+		var choices = {0: "-", 1: "○", 2: "△", 3: "×"};
+		for (var i = 1; i < 8; i++) {
+			var summaryCell = $(".eventSummaryRow td:nth-child(" + (i + 1) + ")");
+			var conf = 0, tent = 0, abs = 0;
+			var rows = $(".attendanceRow");
+			rows.each(function(idx, row) {
+				var cell = row.cells[i];
+				var t = $(cell).text()[0];
+				if (t == choices[1]) {
+					conf++;
+				} else if (t == choices[2]) {
+					tent++;
+				} else if (t == choices[3]) {
+					abs++;
+				}
+			});
+			var html = $("<span class='summaryConf'>" + conf + "</span>, "
+				+ "<span class='summaryTent'>" + tent + "</span>, "
+				+ "<span class='summaryAbs'>" + abs + "</span>");
+			summaryCell.append(html);
+		}

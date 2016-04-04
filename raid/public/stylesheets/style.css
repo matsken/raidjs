@@ -1,0 +1,331 @@
+body, html {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Meiryo, "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+}
+
+body {
+	position: relative;
+	background-color: #200;
+	color: #FFF;
+}
+
+div.leftNav {
+	position: absolute;
+	top: 50px;
+	left: 0px;
+	bottom: 0px;
+	width: 200px;
+}
+div.main {
+	position: absolute;
+	left: 200px;
+	right: 0px;
+	top: 50px;
+	bottom: 20px;
+	overflow: auto;
+}
+
+div.messageContent {
+	padding: 10px;
+}
+
+div.main .content {
+	padding: 10px;
+}
+
+.leftNav .navPane {
+	margin: 10px 7px;
+	border-radius: 3px;
+}
+
+.leftNav .navPane a {
+	display: block;
+	text-decoration: none;
+}
+
+.ui-widget {
+  font-family: Meiryo, "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #FFB700;
+}
+
+div.header {
+	width: 100%;
+	margin: 0px;
+	padding: 10px 0px 6px;
+	background-color: #611;
+	position: relative;
+	border-bottom: ridge 2px #B30000;
+}
+div.header > .logo > a {
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0px 10px;
+	text-decoration: none;
+	height: 30px;
+}
+
+div.header > .logo img {
+	vertical-align: bottom;
+	margin: 0px 5px;
+}
+
+div.header > .actions {
+	position: absolute;
+	right: 10px;
+	top: 18px;
+}
+
+div.footer {
+	position: absolute;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	bottom: 0px;
+}
+
+div.footer .copyright {
+	position: relative;
+	width: 250px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.flow {
+	margin: 3px;
+}
+
+.loginContainer {
+	width: 252px;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+.loginContainer .loginLinks {
+	margin-top: 10px;
+	text-align: center;
+}
+
+span.linkLabel {
+	margin: 0px 5px;
+}
+
+.loginTable td {
+	padding: 3px 0px;
+}
+.loginAction {
+	text-align: center;
+}
+
+.registrationLink {
+	margin: 0px 10px;
+}
+
+.headerTitle {
+	font-weight: bold;
+}
+
+.error {
+	color: red;
+}
+
+.eventTitle {
+	font-weight: bold;
+}
+
+.slickTable {
+	border-collapse: collapse;
+	border: solid 1px #853;
+	margin-top: 5px;
+}
+
+.slickTable td, .slickTable th {
+	padding: 6px 10px;
+	text-align: left;
+	border-left: solid 1px #853;
+	border-right: solid 1px #853;
+	border-collapse: collapse;
+	color: #FFF;
+}
+
+.slickTable th {
+	border-bottom: solid 1px #853;
+}
+
+.slickTable th a {
+	color: #EEE;
+}
+
+.slickTable td:first-child, .slickTable th:first-child {
+	text-align: left;
+}
+
+.slickTable.eventCalendar th:nth-child(6), .slickTable.eventCalendar th:nth-child(7) {
+	background-color: #521;
+}
+
+.slickTable tr:nth-child(even){
+	background-color: #321;
+}
+.slickTable tr:nth-child(odd) {
+	background-color: #432;
+}
+.slickTable thead tr:nth-child(1) {
+	background-color: #210;
+}
+
+.slickTable td.today {
+	background-color: #653;
+}
+.slickTable tr:nth-child(even) td.today {
+	background-color: #542;
+}
+.slickTable.eventCalendar th.today:nth-child(6), .slickTable.eventCalendar th.today:nth-child(7) {
+	background-color: #843;
+}
+
+.slickTable th.today {
+	background-color: #321;
+}
+
+.slickTable .today {
+	background-color: gray;
+}
+
+.slickTable td:first-child {
+	white-space: nowrap;
+}
+
+.attendanceSelector {
+	width: 90px;
+}
+
+.slickTable .ui-button-text-only .ui-button-text {
+	padding: 3px 8px;
+}
+
+.slickTable .commentInput {
+	margin-left: 6px;
+}
+
+.slickTable .eventDetailsRow  td{
+	vertical-align: top;
+}
+.slickTable .eventDetailsRow td:first-child {
+	vertical-align: middle;
+}
+
+.flowTable {
+	display: inline-block;
+	margin: 5px;
+	vertical-align: top;
+}
+
+.flowTable td.mdps {
+	text-align: right;
+}
+
+.flowTable .dpsFlow {
+	width: 106px;
+}
+
+.manageFlowAction {
+	white-space: nowrap;
+}
+
+.manageFlowAction form{
+	display: inline;
+}
+
+.commentBox {
+	display: inline-block;
+	height: 1.5em;
+	text-overflow: ellipsis;
+	max-width: 80px;
+	margin: 0px 5px;
+	cursor: default;
+	vertical-align: middle;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.slickTable .DeathKnight{
+	color: #c41e3b !important;
+	font-weight: bold;
+}
+.slickTable .Druid {
+	color: #ff7c0a !important;
+	font-weight: bold;
+}
+.slickTable .Hunter {
+	color: #aad372 !important;
+	font-weight: bold;
+}
+.slickTable .Monk {
+	color: #00ffba !important;
+	font-weight: bold;
+}
+.slickTable .Mage {
+	color: #68ccef !important;
+	font-weight: bold;
+}
+.slickTable .Paladin {
+	color: #f48cba !important;
+	font-weight: bold;
+}
+.slickTable .Priest {
+	color: #f0ebe0 !important;
+	font-weight: bold;
+}
+.slickTable .Rogue {
+	color: #fff468 !important;
+	font-weight: bold;
+}
+.slickTable .Shaman {
+	color: #2359ff !important;
+	font-weight: bold;
+}
+.slickTable .Warlock {
+	color: #9382c9 !important;
+	font-weight: bold;
+}
+.slickTable .Warrior {
+	color: #c69b6d !important;
+	font-weight: bold;
+}
+
+.slickTable .userName {
+	margin-left: 5px;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+	background: #43362B;
+}
+
+.leftNav > iframe {
+	width: 185px;
+	margin: 0px 7px 0px;
+	border: 1px solid #9c947c;
+	border-radius: 3px;
+}
+
+.eventSummaryRow {
+	font-weight: bold;
+}
+
+.eventSummaryRow .summaryConf {
+	color: #aad332;
+}
+.eventSummaryRow .summaryTent {
+	color: #fff468;
+}
+.eventSummaryRow .summaryAbs {
+	color: #c41e3b;
+}

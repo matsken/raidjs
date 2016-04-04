@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	div.eventTitle= "イベント " + date
+	form(action="/events/save", method="POST")
+		table
+			tr
+				td タイトル
+				td
+					input(type="text", name="title", value=event.title || "")
+			tr
+				td コメント
+				td
+					input(type="text", name="comment", value=event.comment || "")
+		input(type="hidden", name="date", value=date)
+		input(type="hidden", name="id", value=event.id)
+		button.button(type="submit") 保存
+		a.button(href="/events") キャンセル

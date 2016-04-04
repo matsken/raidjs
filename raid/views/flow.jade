@@ -1,0 +1,49 @@
+extends layout
+
+block content
+	div.error= error
+	div.message= message
+	div
+		span.linkLabel= "フローリスト (" + date + ")"
+		span.linkLabel
+			a(href="/flow/history") 履歴
+		span.linkLabel
+			a(href="/flow/undo") ロールバック (直近の確定フローを消去します)
+	div.flowTable
+		table.slickTable.dpsTable
+			thead
+				tr
+					th DPS
+			tbody
+				- if (dps.length == 0)
+					tr
+						td 空です
+
+				- for dp in dps
+					tr
+						- if (dp)
+							td(class=dp.class.replace(" ", ""))= dp.name
+	div.flowTable
+		table.slickTable.healTable
+			thead
+				tr
+					th Heal
+			tbody
+				- if (heal.length == 0)
+					tr
+						td 空です
+				- for h in heal
+						tr
+							td(class=h.class.replace(" ", ""))= h.name
+	div.flowTable
+		table.slickTable.tankTable
+			thead
+				tr
+					th Tank
+			tbody
+				- if (tank.length == 0)
+					tr
+						td 空です
+				- for t in tank
+					tr
+						td(class=t.class.replace(" ", ""))= t.name

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	div.error= error
+	div.message アカウントを完全に削除します。
+	form(action="/users/delete", method="post")
+		table
+			tr
+				td
+					label パスワード
+				td
+					input(type="password", name="password")
+		button.button(type=submit) 実行

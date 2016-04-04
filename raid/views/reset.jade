@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	div.error= error
+	form(action="/register/pwd", method="post")
+		table
+			tr
+				td
+					label 新しいパスワード
+				td
+					input(type="password", name="password")
+		input(type="hidden", value=token, name="token")
+		button.button(type=submit) 送信

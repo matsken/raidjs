@@ -1,0 +1,47 @@
+extends layout
+
+block content
+	div= error
+	form(action="/users/update", method="post")
+		table
+			tr
+				td
+					label Email
+				td
+					input(type="text", name="email", value=session.user.email)
+			tr
+				td
+					label キャラ名
+				td
+					input(type="text", name="name", value=session.user.name)
+			tr
+				td
+					label 職種
+				td
+					select#clsSelect(name="class")
+						option(value="Death Knight") Death Knight
+						option(value="Druid") Druid
+						option(value="Hunter") Hunter
+						option(value="Monk") Monk
+						option(value="Mage") Mage
+						option(value="Paladin") Paladin
+						option(value="Priest") Priest
+						option(value="Rogue") Rogue
+						option(value="Shaman") Shaman
+						option(value="Warlock") Warlock
+						option(value="Warrior") Warrior
+			tr
+				td
+					label 業種
+				td
+					select#roleSelect(name="role", value=session.user.role)
+						option(value="tank") Tank
+						option(value="heal") Heal
+						option(value="mdps") Melee DPS
+						option(value="rdps") Range DPS
+
+		button.button(type="submit") 更新
+		a.button(href="/users/info") 戻る
+	script.
+		$("#clsSelect").val("#{session.user.class}");
+		$("#roleSelect").val("#{session.user.role}");
