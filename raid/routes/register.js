@@ -1,5 +1,5 @@
 var model = require("../model.js"),
-	config = require("../config"),
+	config = require("../../config"),
 	router = require('express').Router();
 	fs = require('fs'),
 	uuid = require('node-uuid'),

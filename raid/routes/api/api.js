@@ -1,8 +1,8 @@
 var express = require("express"),
-    resource = require("express-resource"),
+    resource = require("./resource"),
     jwt = require("jsonwebtoken"),
     model = require("../../model"),
-    config = require("../../config"),
+    config = require("../../../config"),
 	pwhash = require("password-hash"),
     auth = require("./auth"),
     router = express.Router();
@@ -10,9 +10,9 @@ var express = require("express"),
 var User = model.User;
 
 var security = function(req, res, next) {
-    var token = req.body.token || req.query.token || req.header["x-access-token"];
+    var token = req.body.token || req.query.token || req.header("x-access-token");
     if (token) {
-        jwt.verify(toen, config.jwt_secret, function(err, decoded) {
+        jwt.verify(token, config.jwt_secret, function(err, decoded) {
             if (err) {
                 return res.json({success: false, message: err});
             } else {
@@ -25,6 +25,15 @@ var security = function(req, res, next) {
             success: false,
             message: "No token"
         });
+    }
+};
+
+var adminSecurity = function(req, res, next) {
+    var user = req.decoded || {};
+    if (user.isAdmin) {
+        next();
+    } else {
+        res.status(403).json({success: false, message: "Not Authorized"});
     }
 };
 
@@ -43,8 +52,8 @@ router.post("/auth", function(req, res) {
         } else {
             var pw = pwhash.verify(password, user.password);
 			if (pw) {
-                var token = jwt.sign(user, config.jwt_secret, {
-                    expiresInMinutes: 60 * 24 * 30
+                var token = jwt.sign(user.toJSON(), config.jwt_secret, {
+                    expiresIn: 60 * 60 * 24 * 30
                 });
                 res.json({
                     success: true,
@@ -58,10 +67,18 @@ router.post("/auth", function(req, res) {
     });
 });
 
-var init = function(app) {
-    router.use(security);
-    //app.resource("events", require("./api/event"), {id: "id"});
-    return router;
+// filter to mask email and password
+var userFilter = function(item) {
+    item.email = "******" + item.email.substring(item.email.indexOf("@"));
+    item.password = "********";
+    return item;  
 };
-   
-module.exports = init;
+
+// protected routes
+router.use(security);
+
+// admin routes
+router.use(adminSecurity);
+router.use(resource("users", model.User, {filter: userFilter}));
+
+module.exports = router;

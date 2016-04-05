@@ -1,5 +1,5 @@
 var express = require("express"),
-	config = require("../config"),
+	config = require("../../config"),
 	pwhash = require("password-hash"),
 	router = express.Router();
 

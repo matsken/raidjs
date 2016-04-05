@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var model = require("../model.js");
-var config = require("../config");
+var config = require("../../config");
 var User = model.User,
 	Flow = model.Flow,
 	Event = model.Event;

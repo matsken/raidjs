@@ -1,9 +1,18 @@
 #!/usr/bin/env node
-var debug = require('debug')('raidjs');
-var app = require('../app');
+var debug = require('debug')('raidjs'),
+    app = require('../app'),
+    http = require("http"),
+    https = require("https"),
+    fs = require("fs"),
+    config = require("../config");
 
-app.set('port', process.env.PORT || 8080);
+var cert = {
+    key: fs.readFileSync(config.ssl.keyfile, "utf8"),
+    cert: fs.readFileSync(config.ssl.certfile, "utf8")
+};
 
-var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
-});
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(cert, app);
+
+httpServer.listen(config.server.httpPort);
+httpsServer.listen(config.server.httpsPort);

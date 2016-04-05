@@ -1,6 +1,7 @@
 app.log
 node_modules/*
-raid/config.js
+config.js
+cert/
 raid/public/favicon.ico
 raid/mailTemplate.html
 raid/resetTemplate.html

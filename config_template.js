@@ -7,6 +7,11 @@ var config = {
 	adminuser: "<super user>",
 	adminpass: "<super user pass>",
 	session_secret: "<session_secret>",
+    jwt_secret: "<jwt_secret>", // secret used for json web token
+    server: {
+        httpPort: 8080,
+        httpsPort: 8443
+    },
 	email: {	// nodemailer config
 		service: "Gmail",	// nodemailer service name
 		auth: {
@@ -17,7 +22,11 @@ var config = {
 	fromEmail: "<confirmation email sender address>",
 	database: {
 		url: "mongodb://localhost:27017/raidjs"
-	}
+	},
+    ssl: {
+        keyfile: "<key file>",
+        certfile: "<cert file>"
+    }
 };
 
 module.exports = config;

@@ -7,7 +7,7 @@
 	bodyParser = require('body-parser'),
 	model = require("./model.js"),
 	User = model.User, Event = model.Event, Flow = model.Flow,
-	config = require("./config"),
+	config = require("../config"),
 	MongoStore = require('connect-mongo')(session),
 		
 	index = require('./routes/index'),
@@ -106,7 +106,7 @@ var app = express();
 	app.locals.roles = {mdps: "Melee", rdps: "Range", heal: "Heal", tank: "Tank", dps: "DPS"};
 
     // API
-    app.use("/api", api(app));
+    app.use("/api", api);
     
 	// auth routes
 	app.use(loginCheck);

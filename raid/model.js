@@ -1,5 +1,5 @@
 var mongoose = require("mongoose"),
-	config = require("./config");
+	config = require("../config");
 	us = require("underscore");
 var uniqueValidator = require("mongoose-unique-validator");
 

@@ -1,7 +1,7 @@
 var jwt = require("jsonwebtoken"),
     ex = require("express"),
     model = require("../../model"),
-    config = require("../../config"),
+    config = require("../../../config"),
 	pwhash = require("password-hash"),
     router = ex.Router();
     
@@ -16,7 +16,7 @@ router.post("/", function(req, res) {
         email: email
     }, function(err, user) {
         if (err) {
-            res.json({success: false, message: "Error", error: error});
+            res.json({success: false, message: "Error", error: err});
         } else if (!user) {
             res.json({success: false, message: "User not found"});
         } else {
