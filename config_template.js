@@ -8,6 +8,10 @@ var config = {
 	adminpass: "<super user pass>",
 	session_secret: "<session_secret>",
     jwt_secret: "<jwt_secret>", // secret used for json web token
+    armory: {
+        region: "us",
+        realm: "proudmoore"
+    },
     server: {
         httpPort: 8080,
         httpsPort: 8443

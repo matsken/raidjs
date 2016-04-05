@@ -39,7 +39,7 @@ block content
 			for user in users
 				tr.attendanceRow
 					td
-						a(href="http://us.battle.net/wow/en/character/proudmoore/" + user.name + "/advanced", target="_blank", class=user.class.replace(" ", ""))= user.name
+						a(href="http://" + config.armory.region + ".battle.net/wow/en/character/" + config.armory.realm + "/" + user.name + "/advanced", target="_blank", class=user.class.replace(" ", ""))= user.name
 					for event in events
 						td(class=event.today ? "today" : "")
 							- var comm = event.data.attendance && event.data.attendance[user._id] && event.data.attendance[user._id].comment || ""

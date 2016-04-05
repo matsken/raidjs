@@ -23,7 +23,7 @@ block content
 				tr.userRow
 					td
 						input(type="text", value=user.name, name="name_" + user.id)
-						a(class=user.class.replace(" ", "") + " userName", href="http://us.battle.net/wow/en/character/proudmoore/" + user.name + "/advanced", target="_blank")= user.name
+						a(class=user.class.replace(" ", "") + " userName", href="http://" + config.armory.region + ".battle.net/wow/en/character/" + config.armory.realm + "/" + user.name + "/advanced", target="_blank")= user.name
 					td= user.class
 					td= roles[user.role]
 					td.ilvl

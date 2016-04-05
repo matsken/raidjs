@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
 
 router.get("/ilvl", function(req, res) {
 	var name = req.param("name");
-	var url = "http://us.battle.net/api/wow/character/proudmoore/" + name + "?fields=items";
+	var url = "http://" + config.armory.region + ".battle.net/api/wow/character/" + config.armory.realm + "/" + name + "?fields=items";
 	
 	var parts = [
 		"head",
