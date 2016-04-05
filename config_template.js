@@ -3,7 +3,7 @@ var config = {
 	logo: "<url to logo>",
 	passcode: "<registration pass>",
 	hostname: "<hostname used for confirmation link>",
-	vhost: "<domain.com>",	// virtual host name to route
+	vhost: ["localhost"],	// virtual hosts to bind the "raid" module
 	adminuser: "<super user>",
 	adminpass: "<super user pass>",
 	session_secret: "<session_secret>",
@@ -16,13 +16,13 @@ var config = {
         httpPort: 8080,
         httpsPort: 8443
     },
-	email: {	// nodemailer config
-		service: "Gmail",	// nodemailer service name
-		auth: {
-			user: "<email>",
-			pass: "<password>"
-		}
-	},
+    email: {	// nodemailer config
+        service: "Gmail",	// nodemailer service name
+        auth: {
+            user: "<email>",
+            pass: "<password>"
+        }
+    },
 	fromEmail: "<confirmation email sender address>",
 	database: {
 		url: "mongodb://localhost:27017/raidjs"
